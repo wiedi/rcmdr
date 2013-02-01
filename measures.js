@@ -70,10 +70,6 @@ function averagePrecision(ranked_items, correct_items) {
 }
 
 function hits(ranked_items, correct_items, cutoff) {
-	if(cutoff < 1) {
-		return new Error("cutoff must be at least 1")
-	}
-	
 	var hits = 0
 	for(var i = 0; i < ranked_items.length; i++) {
 		if(!_.contains(correct_items, ranked_items[i])) continue
@@ -84,10 +80,16 @@ function hits(ranked_items, correct_items, cutoff) {
 }
 
 function precision(ranked_items, correct_items, cutoff) {
+	if(cutoff < 1) {
+		return new Error("cutoff must be at least 1")
+	}
 	return hits(ranked_items, correct_items, cutoff) / cutoff
 }
 
 function recall(ranked_items, correct_items, cutoff) {
+	if(cutoff < 1) {
+		return new Error("cutoff must be at least 1")
+	}
 	return hits(ranked_items, correct_items, cutoff) / correct_items.length
 }
 
