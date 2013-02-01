@@ -69,12 +69,26 @@ function averagePrecision(ranked_items, correct_items) {
 	return avg / correct_items.length
 }
 
-function precision(ranked_items, correct_items, cutoff) {
+function hits(ranked_items, correct_items, cutoff) {
+	if(cutoff < 1) {
+		return new Error("cutoff must be at least 1")
+	}
 	
+	var hits = 0
+	for(var i = 0; i < ranked_items.length; i++) {
+		if(!_.contains(correct_items, ranked_items[i])) continue
+		if(i >= cutoff) break
+		hits++
+	}
+	return hits
 }
 
-function recall(ranked_items, correct_itmes, cutoff) {
-	
+function precision(ranked_items, correct_items, cutoff) {
+	return hits(ranked_items, correct_items, cutoff) / cutoff
+}
+
+function recall(ranked_items, correct_items, cutoff) {
+	return hits(ranked_items, correct_items, cutoff) / correct_items.length
 }
 
 
@@ -82,3 +96,5 @@ exports.AUC = AUC
 exports.reciprocalRank = reciprocalRank
 exports.NDCG = NDCG
 exports.averagePrecision = averagePrecision
+exports.precision = precision
+exports.recall = recall
