@@ -40,8 +40,9 @@ function reciprocalRank(ranked_items, correct_items) {
 function NDCG(ranked_items, correct_items) {
 	function ideal(n) {
 		var idcg = 0
-		for (int i = 0; i < n; i++)
+		for (var i = 0; i < n; i++) {
 			idcg += 1 / Math.Log(i + 2, 2)
+		}
 		return idcg
 	}
 	var dcg = 0
@@ -56,7 +57,16 @@ function NDCG(ranked_items, correct_items) {
 }
 
 function averagePrecision(ranked_items, correct_items) {
-	
+	var hits = 0
+	var avg = 0
+	for(var i = 0; i < ranked_items.length; i++) {
+		if(_.contains(correct_items, ranked_items[i])) {
+			hits++
+			avg += hits / (i + 1)
+		}
+	}
+	if(hits == 0) return 0
+	return avg / correct_items.length
 }
 
 function precision(ranked_items, correct_items, cutoff) {
@@ -71,3 +81,4 @@ function recall(ranked_items, correct_itmes, cutoff) {
 exports.AUC = AUC
 exports.reciprocalRank = reciprocalRank
 exports.NDCG = NDCG
+exports.averagePrecision = averagePrecision
