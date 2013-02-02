@@ -10,7 +10,7 @@ function crossValidation(recommender, samples, folds, options) {
 
 function evaluateRecommender(recommender, training_set, test_set, options) {
 	options = options || {}
-	var mode = options.mode || 'training'
+	var mode = options.mode || 'test'
 	
 	var candidates = []
 	
@@ -45,7 +45,7 @@ function evaluateRecommender(recommender, training_set, test_set, options) {
 	
 	_.each(test_users, function(user) {
 		var correct_items   = _.map(_.filter(test_set,   function(e) {return e[0] == user}), function(e) { return e[1]})
-		var candidate_items = _.map(_.filter(candidates, function(e) {return e[0] == user}), function(e) { return e[1]})
+		var candidate_items = _.map(candidates, function(e) { return e[1]})
 		
 		var recommended_items = recommender.recommend(user, candidate_items)
 		console.log(user, candidate_items, recommended_items)
