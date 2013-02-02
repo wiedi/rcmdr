@@ -7,17 +7,19 @@ var Lazy = require('lazy')
 function Dataset(stream) {
 	this.users = {}
 	this.items = {}
-	this.feedbacks = []
+	this.feedback = []
 	
 	EventEmitter.call(this)
 	
+	var self = this
+	
 	if(stream) {
 		stream.on('end', function() {
-			this.emit('end')
+			self.emit('end')
 		})
 		Lazy(stream).lines.map(String).map(function(line) {
 			var l = line.split(',')
-			this.add(l[0], l[1])
+			self.add(l[0], l[1])
 		})
 	}	
 }
@@ -33,7 +35,7 @@ Dataset.prototype.add = function(user, item) {
 	}
 	this.users[user].push(item)
 	this.items[item].push(user)
-	this.feedbacks.push([user, item])
+	this.feedback.push([user, item])
 	this.emit("impression", [user, item])
 }
 
