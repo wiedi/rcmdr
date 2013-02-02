@@ -24,7 +24,9 @@ function evaluateRecommender(recommender, training_set, test_set, options) {
 	if(candidates.length < 1) {
 		return new Error("no candidates")
 	}
-	
+
+	var candidate_items = _.map(candidates, function(e) { return e[1]})
+
 	_.each(training_set, function(sample) {
 		recommender.feedback(sample[0], sample[1])
 	})
@@ -42,10 +44,9 @@ function evaluateRecommender(recommender, training_set, test_set, options) {
 		'recall@5':  0,
 		'recall@10': 0
 	}
-	
+
 	_.each(test_users, function(user) {
 		var correct_items   = _.map(_.filter(test_set,   function(e) {return e[0] == user}), function(e) { return e[1]})
-		var candidate_items = _.map(candidates, function(e) { return e[1]})
 		
 		var recommended_items = recommender.recommend(user, candidate_items)
 		console.log(user, candidate_items, recommended_items)
