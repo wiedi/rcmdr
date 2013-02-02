@@ -46,7 +46,7 @@ function evaluateRecommender(recommender, training_set, test_set, options) {
 	}
 
 	_.each(test_users, function(user) {
-		var correct_items   = _.map(_.filter(test_set,   function(e) {return e[0] == user}), function(e) { return e[1]})
+		var correct_items   = _.map(_.filter(test_set, function(e) {return e[0] == user}), function(e) { return e[1]})
 		
 		var recommended_items = recommender.recommend(user, candidate_items)
 		console.log(user, candidate_items, recommended_items)
