@@ -41,7 +41,7 @@ function NDCG(ranked_items, correct_items) {
 	function ideal(n) {
 		var idcg = 0
 		for (var i = 0; i < n; i++) {
-			idcg += 1 / Math.Log(i + 2, 2)
+			idcg += 1 / Math.log(i + 2, 2)
 		}
 		return idcg
 	}
