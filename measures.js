@@ -48,7 +48,7 @@ function NDCG(ranked_items, correct_items) {
 	var dcg = 0
 	var idcg = ideal(correct_items.length)
 	for(var i = 0; i < ranked_items.length; i++) {
-		if(_.contains(correct_items, ranked_items[i])) {
+		if(!_.contains(correct_items, ranked_items[i])) {
 			continue
 		}
 		dcg += 1 / Math.log(i + 2, 2)
