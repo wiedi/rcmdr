@@ -14,7 +14,9 @@ function evaluateRecommender(recommender, training_data, test_data, options) {
 	_.each(training_data.feedback, function(sample) {
 		recommender.feedback(sample[0], sample[1])
 	})
+	console.log('starting training...')
 	recommender.train()
+	console.log('training done...')
 	
 	var test_users = _.keys(test_data.users)
 	var candidate_items = _.keys(test_data.items)
@@ -34,7 +36,7 @@ function evaluateRecommender(recommender, training_data, test_data, options) {
 		var correct_items   = test_data.users[user]
 		
 		var recommended_items = recommender.recommend(user, candidate_items)
-		var dropped = candidate_items.length - recommended_items
+		var dropped = candidate_items.length - recommended_items.length
 		
 		results.AUC  += measures.AUC(recommended_items, correct_items, dropped)
 		results.NDCG += measures.NDCG(recommended_items, correct_items)
