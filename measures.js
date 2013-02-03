@@ -15,7 +15,7 @@ function AUC(ranked_items, relevant_items, dropped_items_count) {
 	var correct = 0
 	var total = 0
 	_.each(ranked_items, function(e) {
-		if(_.contains(relevant_items, e)) {
+		if(!_.contains(relevant_items, e)) {
 			correct += total
 		} else {
 			total++
