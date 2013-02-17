@@ -16,10 +16,14 @@ Mapping.prototype.toInternal = function(original) {
 	if(original in this.original_to_internal) {
 		return this.original_to_internal[original]
 	}
-	var id = internal_to_original.length
-	original_to_internal[original] = id
-	internal_to_original.push(original)
+	var id = this.internal_to_original.length
+	this.original_to_internal[original] = id
+	this.internal_to_original.push(original)
 	return id
+}
+
+Mapping.prototype.count = function() {
+	return this.internal_to_original.length
 }
 
 module.exports = Mapping
