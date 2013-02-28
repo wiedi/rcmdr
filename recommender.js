@@ -6,7 +6,8 @@ var _ = require('underscore')
 var algorithms = {
 	'zero':         require('./recommender/zero'),
 	'random':       require('./recommender/random'),
-	'most_popular': require('./recommender/most_popular')
+	'most_popular': require('./recommender/most_popular'),
+	'bprmf':        require('./recommender/bprmf'),
 }
 
 function Recommender(algorithm, options) {

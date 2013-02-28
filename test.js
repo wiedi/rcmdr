@@ -9,9 +9,10 @@ var SplitDataset = require('./splitdataset.js')
 var validation   = require('./validation')
 
 var recommenders = {
-	'zero': new Recommender('zero'),
+	//'zero': new Recommender('zero'),
 	'random': new Recommender('random'),
-	'most_popular': new Recommender('most_popular')
+	'most_popular': new Recommender('most_popular'),
+	'bprmf': new Recommender('bprmf'),
 }
 
 var measures = ['AUC', 'NDCG', 'MAP', 'MRR', 'prec@5', 'prec@10', 'recall@5', 'recall@10']
